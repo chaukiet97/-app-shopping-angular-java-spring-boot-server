@@ -59,4 +59,13 @@ public class PageController {
 
         return new Response(HttpStatus.OK.value(), "success", null);
     }
+    @DeleteMapping("/deletePage/{id}")
+    public Response deleteePage(@PathVariable("id") Integer id) {
+        Optional<Page> optional = pageRepositories.findById(id);
+        if (!optional.get().getId().equals(id)) {
+            return new Response(HttpStatus.NOT_FOUND.value(), "Không tôn tại id", null);
+        }
+        pageRepositories.deleteById(id);
+        return new Response(HttpStatus.OK.value(), "success", null);
+    }
 }

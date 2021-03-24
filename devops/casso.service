@@ -1,0 +1,13 @@
+
+[Unit]
+Description=My Webapp Java REST Service
+
+[Service]
+User=root
+WorkingDirectory=/root/casso-admintool
+ExecStart=/root/casso-admintool/start.sh
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

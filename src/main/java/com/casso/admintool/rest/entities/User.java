@@ -18,6 +18,7 @@ public class User implements Serializable {
     private String name;
     private String password_hash;
     private String phone;
+    private Integer sex;
     private Date brithday;
 
     @Id
@@ -25,6 +26,14 @@ public class User implements Serializable {
     @Column(name = "id")
     public Integer getId() {
         return id;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
     }
 
     public void setId(Integer id) {
@@ -91,7 +100,7 @@ public class User implements Serializable {
     }
 
     public User(Integer id, String email, String firstname, String lastname, String name, String password_hash,
-            String phone, Date brithday) {
+            String phone, Date brithday, Integer sex) {
         this.id = id;
         this.email = email;
         this.firstname = firstname;
@@ -100,6 +109,7 @@ public class User implements Serializable {
         this.password_hash = password_hash;
         this.phone = phone;
         this.brithday = brithday;
+        this.sex = sex;
     }
 
 }

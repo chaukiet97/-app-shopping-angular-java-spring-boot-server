@@ -5,13 +5,14 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-public class MadeIn implements Serializable{
-     /**
-     *
-     */
+public class MadeIn implements Serializable {
+    /**
+    *
+    */
     private static final long serialVersionUID = 1L;
     private Integer id;
     private String name;
+    private String link;
     private Date create_time;
 
     @Id
@@ -19,6 +20,14 @@ public class MadeIn implements Serializable{
     @Column(name = "id")
     public Integer getId() {
         return id;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public void setId(Integer id) {
@@ -44,9 +53,10 @@ public class MadeIn implements Serializable{
     public MadeIn() {
     }
 
-    public MadeIn(Integer id, String name, Date create_time) {
+    public MadeIn(Integer id, String name, String link, Date create_time) {
         this.id = id;
         this.name = name;
+        this.link = link;
         this.create_time = create_time;
     }
 

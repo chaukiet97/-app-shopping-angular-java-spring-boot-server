@@ -14,12 +14,21 @@ public class ProductsGroup implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer id;
     private String name;
+    private String link;
     private Date created_time;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public Integer getId() {
         return id;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public void setId(Integer id) {
@@ -45,9 +54,10 @@ public class ProductsGroup implements Serializable {
     public ProductsGroup() {
     }
 
-    public ProductsGroup(Integer id, String name, Date created_time) {
+    public ProductsGroup(Integer id, String name, String link, Date created_time) {
         this.id = id;
         this.name = name;
+        this.link = link;
         this.created_time = created_time;
     }
 }

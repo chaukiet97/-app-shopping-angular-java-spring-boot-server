@@ -59,6 +59,7 @@ public class PageController {
 
         return new Response(HttpStatus.OK.value(), "success", null);
     }
+
     @DeleteMapping("/deletePage/{id}")
     public Response deleteePage(@PathVariable("id") Integer id) {
         Optional<Page> optional = pageRepositories.findById(id);
@@ -67,5 +68,14 @@ public class PageController {
         }
         pageRepositories.deleteById(id);
         return new Response(HttpStatus.OK.value(), "success", null);
+    }
+
+    @GetMapping("/pageByType")
+    public Response getPageByType() {
+        List<Page> list =pageRepositories.getPageByType();
+        if (list.size()==0) {
+            return new Response(HttpStatus.NOT_FOUND.value(), "Không tồn tại dữ liệu", null);
+        }
+        return new Response(HttpStatus.OK.value(), "success", list);
     }
 }

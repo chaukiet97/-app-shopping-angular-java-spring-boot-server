@@ -18,6 +18,7 @@ public class Page implements Serializable {
     private Integer group_id;
     private String detail;
     private Integer type;
+    private Integer parent_id;
     private String description;
     private Date create_time;
     private Integer status;
@@ -27,6 +28,12 @@ public class Page implements Serializable {
     @Column(name = "id")
     public Integer getId() {
         return id;
+    }
+    public Integer getParent_id() {
+        return parent_id;
+    }
+    public void setParent_id(Integer parent_id) {
+        this.parent_id = parent_id;
     }
     public void setId(Integer id) {
         this.id = id;
@@ -100,7 +107,7 @@ public class Page implements Serializable {
     public Page() {
     }
 
-    public Page(Integer id, String name, String link, Integer group_id, String detail, Integer type, String description,
+    public Page(Integer id, String name, String link, Integer group_id, String detail, Integer type, Integer parent_id, String description,
             Date create_time, Integer status) {
         this.id = id;
         this.name = name;
@@ -108,6 +115,7 @@ public class Page implements Serializable {
         this.group_id = group_id;
         this.detail = detail;
         this.type = type;
+        this.parent_id = parent_id;
         this.description = description;
         this.create_time = create_time;
         this.status = status;

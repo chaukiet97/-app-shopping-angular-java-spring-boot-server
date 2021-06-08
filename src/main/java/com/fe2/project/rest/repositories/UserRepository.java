@@ -28,7 +28,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, Integer
 
     // update password
     @Modifying
-    @Query(value = "UPDATE `user` SET `password_hash`=?1 WHERE `id`=?1", nativeQuery = true)
+    @Query(value = "UPDATE `user` SET `password_hash`=?1 WHERE `id`=?2", nativeQuery = true)
     @Transactional
     void updatePasswordhash(String password_hash, Integer id);
 

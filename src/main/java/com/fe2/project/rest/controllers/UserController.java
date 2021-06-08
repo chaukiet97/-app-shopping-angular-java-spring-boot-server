@@ -61,7 +61,7 @@ public class UserController {
             return new Response(HttpStatus.NOT_FOUND.value(), "User rỗng", null);
         }
         for (int i = 0; i < user.size(); i++) {
-            if (user.get(i).getPassword_hash() !=null) {
+            if (user.get(i).getPassword_hash() != null) {
                 user.get(i).setPassword_hash("");
             }
         }
@@ -87,7 +87,7 @@ public class UserController {
             }
         }
         // if (user.get(0) != null) {
-        //     return new Response(HttpStatus.NOT_FOUND.value(), "Email đã tồn tại", null);
+        // return new Response(HttpStatus.NOT_FOUND.value(), "Email đã tồn tại", null);
         // }
         userBody.setCreate_time(new Date());
         userBody.setName(userBody.getFirstname() + " " + userBody.getLastname());
@@ -113,9 +113,14 @@ public class UserController {
         if (!optional.get().getId().equals(id)) {
             return new Response(HttpStatus.NOT_FOUND.value(), "Không tồn tại ID", null);
         }
-        String passwordHash = updatePassword.getPassword_hash();
-        passwordHash = SHA512.encryptThisString(passwordHash);
-        userRepository.updatePasswordhash(passwordHash, id);
+        String passwordHashServer = optional.get().getPassword_hash();
+        String passwordHashClient = updatePassword.getPassword_hash();
+        passwordHashClient = SHA512.encryptThisString(passwordHashClient);
+        if (passwordHashServer.equals(passwordHashClient)) {
+            return new Response(HttpStatus.NOT_FOUND.value(), "Mật khẩu mới trùng với mật khẩu hiện tại. Vui lòng nhập lại", null);
+        }
+
+        userRepository.updatePasswordhash(passwordHashClient, id);
         return new Response(HttpStatus.OK.value(), "success", null);
     }
 

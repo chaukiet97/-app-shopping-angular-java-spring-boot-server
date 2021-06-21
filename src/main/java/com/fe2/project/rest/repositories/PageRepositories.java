@@ -28,6 +28,6 @@ public interface PageRepositories extends PagingAndSortingRepository<Page, Integ
         @Query(value = "SELECT * FROM `page` WHERE type=3", nativeQuery = true)
         List<Page> getPageByType();
 
-        @Query(value = "SELECT * FROM `page` WHERE group_id=1", nativeQuery = true)
+        @Query(value = "SELECT * FROM `page` WHERE group_id=?1", nativeQuery = true)
         List<Page>menu(Integer id);
 }

@@ -18,6 +18,7 @@ public class ProductResponse {
     private String list_images;
     private Integer count;
     private Integer status;
+    private Integer type;
     private Date create_time;
     private String parent_link;
     private String name_group;
@@ -26,6 +27,14 @@ public class ProductResponse {
 
     public Integer getId() {
         return id;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getName_made() {
@@ -181,7 +190,7 @@ public class ProductResponse {
 
     public ProductResponse(Integer id, String name, String link, Integer group_id, Integer made_in_id, Integer brand_id,
             String description, String detail, Double price, Double price_sale, String images, String list_images,
-            Integer count, Integer status, Date create_time,String parent_link, String name_group, String name_brand, String name_made) {
+            Integer count, Integer status,Integer type, Date create_time,String parent_link, String name_group, String name_brand, String name_made) {
         this.id = id;
         this.name = name;
         this.link = link;   
@@ -196,6 +205,7 @@ public class ProductResponse {
         this.list_images = list_images;
         this.count = count;
         this.status = status;
+        this.type = type;
         this.create_time = create_time;
         this.parent_link = parent_link;
         this.name_group = name_group;

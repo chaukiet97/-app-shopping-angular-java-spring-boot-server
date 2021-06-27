@@ -24,6 +24,7 @@ public class Products implements Serializable {
     private Double price_sale;
     private String images;
     private String list_images;
+    private Integer type;
     private Integer count;
     private Integer status;
     private Date create_time;
@@ -33,6 +34,14 @@ public class Products implements Serializable {
     @Column(name = "id")
     public Integer getId() {
         return id;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public void setId(Integer id) {
@@ -156,10 +165,10 @@ public class Products implements Serializable {
 
     public Products(Integer id, String name, String link, Integer group_id, Integer made_in_id, Integer brand_id,
             String description, String detail, Double price, Double price_sale, String images, String list_images,
-            Integer count, Integer status, Date create_time) {
+            Integer type, Integer count, Integer status, Date create_time) {
         this.id = id;
         this.name = name;
-        this.link = link;   
+        this.link = link;
         this.group_id = group_id;
         this.made_in_id = made_in_id;
         this.brand_id = brand_id;
@@ -169,6 +178,7 @@ public class Products implements Serializable {
         this.price_sale = price_sale;
         this.images = images;
         this.list_images = list_images;
+        this.type = type;
         this.count = count;
         this.status = status;
         this.create_time = create_time;

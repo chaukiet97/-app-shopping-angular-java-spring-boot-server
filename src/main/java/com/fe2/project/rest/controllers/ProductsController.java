@@ -227,7 +227,7 @@ public class ProductsController {
         productsRepositories.updateProduct(products.getBrand_id(), products.getDescription(), products.getDetail(),
                 products.getImages(), products.getLink(), products.getList_images(), products.getMade_in_id(),
                 products.getName(), products.getPrice(), products.getStatus(), products.getCount(),
-                products.getGroup_id(), products.getPrice_sale(), id);
+                products.getGroup_id(), products.getPrice_sale(),products.getType(), id);
         return new Response(HttpStatus.OK.value(), "success", null);
     }
     @DeleteMapping("/deleteProduct/{id}")

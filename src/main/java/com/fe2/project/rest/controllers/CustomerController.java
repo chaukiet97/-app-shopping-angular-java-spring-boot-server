@@ -1,6 +1,8 @@
 package com.fe2.project.rest.controllers;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import com.fe2.project.rest.entities.Customer;
 import com.fe2.project.rest.repositories.CustomerRespositories;
@@ -12,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 
 @RestController
@@ -30,5 +34,23 @@ public class CustomerController {
         customerRespositories.save(customer);
         return new Response(HttpStatus.OK.value(), "success", customer);
     }
+    @GetMapping(value="/getAllCustomer")
+    public Response getAllCustomer() {
+        List<Customer> customer = customerRespositories.findAll();
+        if (customer.isEmpty()) {
+        return new Response(HttpStatus.OK.value(), "Không tồn tại khách hàng", null);
+        }
+        return new Response(HttpStatus.OK.value(), "success", customer);
+    }
+    @DeleteMapping(value = "/deleteCustomer/{id}")
+    public Response deleteCustomer(@PathVariable Integer id){
+        Optional <Customer> optional = customerRespositories.findById(id);
+        if (!optional.isEmpty()) {
+        return new Response(HttpStatus.OK.value(), "Không tồn tại khách hàng",null);
+        }
+        customerRespositories.deleteById(id);
+        return new Response(HttpStatus.OK.value(), "success", null);
+    }
+    
     
 }

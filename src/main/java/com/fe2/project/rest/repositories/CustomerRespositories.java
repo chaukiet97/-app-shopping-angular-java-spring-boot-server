@@ -8,4 +8,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface CustomerRespositories extends PagingAndSortingRepository<Customer, Integer> {
     List<Customer> findByEmail(String email);
+    List<Customer> findAll();
 }

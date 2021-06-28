@@ -11,8 +11,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ContactRepositories extends PagingAndSortingRepository<Contact,Integer> {
+public interface ContactRepositories extends PagingAndSortingRepository<Contact, Integer> {
     List<Contact> findAll();
+
+    // List<Contact> findById();
 
     @Modifying
     @Query(value = "UPDATE `contact` SET `day_reply`=?1,`maker_id`=?2,`reply`=?3,`status`=?4 WHERE `id`=?5", nativeQuery = true)

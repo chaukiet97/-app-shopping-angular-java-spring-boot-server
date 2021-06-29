@@ -12,10 +12,12 @@ import com.fe2.project.rest.entities.Page;
 import com.fe2.project.rest.entities.Website;
 import com.fe2.project.rest.repositories.BannerRepositories;
 import com.fe2.project.rest.repositories.ContactRepositories;
+import com.fe2.project.rest.repositories.ContentRespositories;
 import com.fe2.project.rest.repositories.CustomerRespositories;
 import com.fe2.project.rest.repositories.PageRepositories;
 import com.fe2.project.rest.repositories.ProductsRepositories;
 import com.fe2.project.rest.repositories.WebsiteRepositories;
+import com.fe2.project.rest.repositories.DTO.ContentDTO;
 import com.fe2.project.rest.repositories.DTO.Login;
 import com.fe2.project.rest.repositories.DTO.ProductResponse;
 import com.fe2.project.rest.repositories.DTO.Response;
@@ -45,6 +47,9 @@ public class APIController {
     private ProductsRepositories productsRepositories;
     @Autowired
     private CustomerRespositories customerRespositories;
+
+    @Autowired
+    private ContentRespositories contentRespositories;
 
     @GetMapping("/getMenu/{id}")
     public Response getMenu(@PathVariable Integer id) {
@@ -114,7 +119,7 @@ public class APIController {
             productResponse.setPrice((Double) obj[12]);
             productResponse.setPrice_sale((Double) obj[13]);
             productResponse.setStatus((Integer) obj[14]);
-            productResponse.setType((Integer)obj[15]);
+            productResponse.setType((Integer) obj[15]);
             productResponse.setParent_link((String) obj[16]);
             productResponse.setName_group((String) obj[17]);
             productResponse.setName_brand((String) obj[18]);
@@ -148,7 +153,7 @@ public class APIController {
             productResponse.setPrice((Double) obj[12]);
             productResponse.setPrice_sale((Double) obj[13]);
             productResponse.setStatus((Integer) obj[14]);
-            productResponse.setType((Integer)obj[15]);
+            productResponse.setType((Integer) obj[15]);
             productResponse.setParent_link((String) obj[16]);
             productResponse.setName_group((String) obj[17]);
             productResponse.setName_brand((String) obj[18]);
@@ -183,7 +188,7 @@ public class APIController {
             productResponse.setPrice((Double) obj[12]);
             productResponse.setPrice_sale((Double) obj[13]);
             productResponse.setStatus((Integer) obj[14]);
-            productResponse.setType((Integer)obj[15]);
+            productResponse.setType((Integer) obj[15]);
             productResponse.setParent_link((String) obj[16]);
             productResponse.setName_group((String) obj[17]);
             productResponse.setName_brand((String) obj[18]);
@@ -218,7 +223,7 @@ public class APIController {
             productResponse.setPrice((Double) obj[12]);
             productResponse.setPrice_sale((Double) obj[13]);
             productResponse.setStatus((Integer) obj[14]);
-            productResponse.setType((Integer)obj[15]);
+            productResponse.setType((Integer) obj[15]);
             productResponse.setParent_link((String) obj[16]);
             productResponse.setName_group((String) obj[17]);
             productResponse.setName_brand((String) obj[18]);
@@ -252,7 +257,7 @@ public class APIController {
             productResponse.setPrice((Double) obj[12]);
             productResponse.setPrice_sale((Double) obj[13]);
             productResponse.setStatus((Integer) obj[14]);
-            productResponse.setType((Integer)obj[15]);
+            productResponse.setType((Integer) obj[15]);
             productResponse.setParent_link((String) obj[16]);
             productResponse.setName_group((String) obj[17]);
             productResponse.setName_brand((String) obj[18]);
@@ -261,8 +266,9 @@ public class APIController {
         }
         return new Response(HttpStatus.OK.value(), "success", list);
     }
+
     @GetMapping(value = "/getProductByType/{type}")
-    public Response getProductByType(@PathVariable Integer type){
+    public Response getProductByType(@PathVariable Integer type) {
         List<Object[]> objects = productsRepositories.findProductByType(type);
         if (objects.isEmpty()) {
             return new Response(HttpStatus.NOT_FOUND.value(), "Không có sản phẩm", null);
@@ -285,7 +291,7 @@ public class APIController {
             productResponse.setPrice((Double) obj[12]);
             productResponse.setPrice_sale((Double) obj[13]);
             productResponse.setStatus((Integer) obj[14]);
-            productResponse.setType((Integer)obj[15]);
+            productResponse.setType((Integer) obj[15]);
             productResponse.setParent_link((String) obj[16]);
             productResponse.setName_group((String) obj[17]);
             productResponse.setName_brand((String) obj[18]);
@@ -294,6 +300,7 @@ public class APIController {
         }
         return new Response(HttpStatus.OK.value(), "success", list);
     }
+
     @PostMapping("/login")
     public Response Login(@RequestBody Login login) {
         List<Customer> customers = customerRespositories.findByEmail(login.getEmail());
@@ -308,6 +315,80 @@ public class APIController {
             return new Response(HttpStatus.NOT_FOUND.value(), "Email hoặc mật khẩu không chính xác", null);
         }
         return new Response(HttpStatus.OK.value(), "success", customers);
+    }
+
+    @GetMapping(value = "/getContentHome")
+    public Response getContentHome() {
+        List<Object[]> contents = contentRespositories.getContentHome();
+        if (contents.isEmpty()) {
+            return new Response(HttpStatus.NOT_FOUND.value(), "Không có sản phẩm", null);
+        }
+        ArrayList<ContentDTO> list = new ArrayList<ContentDTO>();
+        for (Object[] obj : contents) {
+            ContentDTO contentDTO = new ContentDTO();
+            contentDTO.setId((Integer) obj[0]);
+            contentDTO.setCreate_time((Date) obj[1]);
+            contentDTO.setDescription((String) obj[2]);
+            contentDTO.setDetail((String) obj[3]);
+            contentDTO.setGroup_id((Integer) obj[4]);
+            contentDTO.setImages((String) obj[5]);
+            contentDTO.setLink((String) obj[6]);
+            contentDTO.setName((String) obj[7]);
+            contentDTO.setStatus((Integer) obj[8]);
+            contentDTO.setName_group((String) obj[9]);
+            contentDTO.setParent_link((String) obj[10]);
+            list.add(contentDTO);
+        }
+        return new Response(HttpStatus.OK.value(), "success", list);
+    }
+    @GetMapping(value = "/getContentGroup/{link}")
+    public Response getContentGroup(@PathVariable String link){
+        List<Object[]> contents = contentRespositories.getContentByLink(link);
+        if (contents.isEmpty()) {
+            return new Response(HttpStatus.NOT_FOUND.value(), "Không có sản phẩm", null);
+        }
+        ArrayList<ContentDTO> list = new ArrayList<ContentDTO>();
+        for (Object[] obj : contents) {
+            ContentDTO contentDTO = new ContentDTO();
+            contentDTO.setId((Integer) obj[0]);
+            contentDTO.setCreate_time((Date) obj[1]);
+            contentDTO.setDescription((String) obj[2]);
+            contentDTO.setDetail((String) obj[3]);
+            contentDTO.setGroup_id((Integer) obj[4]);
+            contentDTO.setImages((String) obj[5]);
+            contentDTO.setLink((String) obj[6]);
+            contentDTO.setName((String) obj[7]);
+            contentDTO.setStatus((Integer) obj[8]);
+            contentDTO.setName_group((String) obj[9]);
+            contentDTO.setParent_link((String) obj[10]);
+            list.add(contentDTO);
+        }
+        return new Response(HttpStatus.OK.value(), "success", list);
+    }
+
+    @GetMapping(value = "/getContentByLink/{link}")
+    public Response getContentByLink(@PathVariable String link){
+        List<Object[]> contents = contentRespositories.getContentDetail(link);
+        if (contents.isEmpty()) {
+            return new Response(HttpStatus.NOT_FOUND.value(), "Không có sản phẩm", null);
+        }
+        ArrayList<ContentDTO> list = new ArrayList<ContentDTO>();
+        for (Object[] obj : contents) {
+            ContentDTO contentDTO = new ContentDTO();
+            contentDTO.setId((Integer) obj[0]);
+            contentDTO.setCreate_time((Date) obj[1]);
+            contentDTO.setDescription((String) obj[2]);
+            contentDTO.setDetail((String) obj[3]);
+            contentDTO.setGroup_id((Integer) obj[4]);
+            contentDTO.setImages((String) obj[5]);
+            contentDTO.setLink((String) obj[6]);
+            contentDTO.setName((String) obj[7]);
+            contentDTO.setStatus((Integer) obj[8]);
+            contentDTO.setName_group((String) obj[9]);
+            contentDTO.setParent_link((String) obj[10]);
+            list.add(contentDTO);
+        }
+        return new Response(HttpStatus.OK.value(), "success", list);
     }
 
 }

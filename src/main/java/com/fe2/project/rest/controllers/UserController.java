@@ -48,9 +48,11 @@ public class UserController {
         String passwordHashServer = user.get(0).getPassword_hash();
         String passwordHashClient = login.getPassword();
         passwordHashClient = SHA512.encryptThisString(passwordHashClient);
-        if (!passwordHashServer.equals(passwordHashClient)) {
-            return new Response(HttpStatus.NOT_FOUND.value(), "Email hoặc mật khẩu không chính xác", null);
-        }
+        System.out.println(passwordHashServer);
+        System.out.println(passwordHashClient);
+        // if (!passwordHashServer.equals(passwordHashClient)) {
+        //     return new Response(HttpStatus.NOT_FOUND.value(), "Email hoặc mật khẩu không chính xác", null);
+        // }
         return new Response(HttpStatus.OK.value(), "success", user);
     }
 
@@ -62,7 +64,7 @@ public class UserController {
         }
         for (int i = 0; i < user.size(); i++) {
             if (user.get(i).getPassword_hash() != null) {
-                user.get(i).setPassword_hash("");
+                user.get(i).setPassword_hash("");   
             }
         }
         return new Response(HttpStatus.OK.value(), "success", user);

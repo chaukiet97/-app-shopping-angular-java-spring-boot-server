@@ -4,11 +4,11 @@ Cài đặt Package
 ------
 
 ```bash
-./mvnw clean package
+./mvn clean package
 ```
 Chạy 
 ------
 
 ```bash
-./mvnw spring-boot:run
+./mvn spring-boot:run
 ```
